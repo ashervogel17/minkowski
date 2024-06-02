@@ -69,7 +69,7 @@ function drawGrid() {
 }
 
 function drawLightCone(x, y, r, g, b) {
-  // Set fill color
+  ctx.lineWidth = 1;
   setFillColor(r, g, b, lightConeOpacity);
 
   // Upper part of light cone
@@ -98,18 +98,8 @@ function drawLightCone(x, y, r, g, b) {
 function drawAll() {
   clearCanvas();
   drawGrid();
+  ctx.lineWidth = 2;
   setStrokeColor(colors[0][0], colors[0][1], colors[0][2]);
-
-  for (let i = 0; i < worldline.length; i++) {
-    for (let j = 0; j < worldline[i].length; j++) {
-      x = worldline[i][j];
-      y = worldline[i][j];
-      
-      // Draw current point
-      ctx.beginPath();
-      ctx.strokeStyle = ''
-    }
-  }
 
   for (let i = 0; i < worldline.length; i++) {
     x = worldline[i][0];
