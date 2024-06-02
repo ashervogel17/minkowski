@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image and Canvas Interaction</title>
+    <title>Minkowski Spacetime Calculator</title>
+    <link rel="icon" href="icon.jpeg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,18 +26,42 @@
           </div>
         </div>
         <div class="verticalFlex" id="rightContainer">
-          <div class="container" id="newWorldlineContainer">
-            <h2 class="centeredText" >Add Worldlines</h2>
+          <div class="container verticalFlex" id="selectWorldlineContainer">
+            <h2 class="centeredText" >Select Worldline</h2>
+            <label class="worldline-radio-container worldline-1-radio-container">Worldline 1
+              <input type="radio" class="worldline-radio-input" name="worldline_option" value="0" onclick="onRadioClick(this)" checked>
+              <span class="worldline-radio-btn"></span>
+            </label>
+            <label class="worldline-radio-container worldline-2-radio-container">Worldline 2
+              <input type="radio" class="worldline-radio-input" name="worldline_option" value="1" onclick="onRadioClick(this)">
+              <span class="worldline-radio-btn"></span>
+            </label>
+            <label class="worldline-radio-container worldline-3-radio-container">Worldline 3
+              <input type="radio" class="worldline-radio-input" name="worldline_option" value="2" onclick="onRadioClick(this)">
+              <span class="worldline-radio-btn"></span>
+            </label>
           </div>
           <div id="minkowskiContainer">
             <h2 class="centeredText" >Minkowski Spacetime Intervals</h2>
+            
           </div>
         </div>
       </div>
       <div class="horizontalFlex" id="toolbar">
-        <div class="option">
-          <label for="ShowLightCones">Show Light Cones:</label>
-          <input type="checkbox" id="ShowLightConesCheckbox" checked>
+        <div class="option centeredText">
+          <label for="ShowLightCone1">Show Worldline 1 Light Cone:</label>
+          <input type="checkbox" id="LightCone1Checkbox" checked>
+        </div>
+        <div class="option centeredText">
+          <label for="ShowLightCone2">Show Worldline 2 Light Cone:</label>
+          <input type="checkbox" id="LightCone2Checkbox" checked>
+        </div>
+        <div class="option centeredText">
+          <label for="ShowLightCone3">Show Worldline 3 Light Cone:</label>
+          <input type="checkbox" id="LightCone3Checkbox" checked>
+        </div>
+        <div class="centeredText">
+          <button id="clearButton" class="rectangular-button" onclick="clearWorldlines()">Clear All Worldlines</button>
         </div>
       </div>
     </div>

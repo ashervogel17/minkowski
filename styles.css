@@ -20,6 +20,7 @@ header, footer {
 .verticalFlex {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 #mainContainer {
@@ -30,7 +31,7 @@ header, footer {
 
 #instructionsContainer {
   width: 200px;
-  background-color: grey;
+  background-color: moccasin;
   border: 1px solid black;
   height: 600px;
   margin-left: 5px;
@@ -39,22 +40,24 @@ header, footer {
 
 #rightContainer {
   width: 400px;
-  background-color: grey;
-  border: 1px solid black;
   height: 600px;
   margin-left: 5px;
   margin-right: 5px;
 }
 
-#newWorldlineContainer {
-  background-color: green;
+#selectWorldlineContainer {
+  background-color: moccasin;
   border: 1px solid black;
-  height: 50%
+  height: 48%;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
 #minkowskiContainer {
-  height: 50%;
-  background-color: blue;
+  height: 48%;
+  margin-top: 5px;
+  background-color: moccasin;
+  border: 1px solid black;
 }
 
 #drawingCanvas {
@@ -88,8 +91,85 @@ header, footer {
   border: 1px solid black;
   height: 50px;
   margin: 30px;
+  background-color: moccasin;
+  justify-content: space-around;
 }
 
 .centeredText {
   text-align: center;
+  justify-self: center;
+  align-self: center;
+  vertical-align: center;
+}
+
+/* .worldline-radio-input {
+  display: none;
+} */
+
+.worldline-1-radio-container {
+  background-color: rgb(57, 19, 247);
+  color: white;
+}
+
+.worldline-2-radio-container {
+  background-color: rgb(247, 93, 42);
+  color: purple;
+}
+
+.worldline-3-radio-container {
+  background-color: rgb(63, 204, 89);
+  color: maroon;
+}
+
+
+/* Custom styled radio button container */
+.worldline-radio-container {
+  width: 80%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-right: 15px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Styled rectangle representing the radio button */
+.worldline-radio-container:hover {
+  border-color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styles */
+.radio-label {
+  font-size: 16px;
+  color: #333;
+}
+
+.option {
+  background-color: white;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.rectangular-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Hover effect */
+.rectangular-button:hover {
+  background-color: #0056b3;
+}
+
+#clearButton {
+  background-color: red;
+  width: 300px;
 }

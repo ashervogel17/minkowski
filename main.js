@@ -2,7 +2,9 @@
 
 // Document elements
 const canvas = document.getElementById('drawingCanvas');
-const showLightConesCheckbox = document.getElementById('ShowLightConesCheckbox');
+const LightCone1Checkbox = document.getElementById('LightCone1Checkbox');
+const LightCone2Checkbox = document.getElementById('LightCone2Checkbox');
+const LightCone3Checkbox = document.getElementById('LightCone3Checkbox');
 
 // Drawing variables
 const ctx = canvas.getContext('2d');
@@ -10,13 +12,17 @@ const radius = 10;
 const colors = [[57, 19, 247], [247, 93, 42], [63, 204, 89]];
 const lightConeOpacity = 0.15;
 const WINDOW_SIZE = 600;
-let showLightCones = true;
+let showLightCones = [true, true, true];
 
 // 3-D list: first index is which worldline, second index is which point in worldline, third index is x or y
-let worldline = [[], [], []];
+let worldlines = [[], [], []];
 let worldlineIndex = 0; // index of current worldine (i.e. next one to add a point to)
 
 // EVENT LISTENERS
+
+function onRadioClick(radio) {
+  worldlineIndex = Number(radio.value);
+}
 
 window.onload = function() {
   drawGrid();
@@ -26,14 +32,30 @@ canvas.addEventListener('click', function(event) {
   const rect = canvas.getBoundingClientRect();
   let x = event.clientX - rect.left;
   let y = event.clientY - rect.top;
-  worldline[worldlineIndex].push([x, y]);
+  worldlines[worldlineIndex].push([x, y]);
   drawAll();
 });
 
-showLightConesCheckbox.addEventListener('change', function() {
-  showLightCones = this.checked;
+LightCone1Checkbox.addEventListener('change', function() {
+  showLightCones[0] = this.checked;
   drawAll();
 });
+
+LightCone2Checkbox.addEventListener('change', function() {
+  showLightCones[1] = this.checked;
+  drawAll();
+});
+
+LightCone3Checkbox.addEventListener('change', function() {
+  showLightCones[2] = this.checked;
+  drawAll();
+});
+
+function clearWorldlines() {
+  worldlines = [];
+  drawAll();
+}
+
 
 // DRAWING FUNCTIONS
 
@@ -68,50 +90,62 @@ function drawGrid() {
   }
 }
 
-function drawLightCone(x, y, r, g, b) {
+function drawLightCones() {
   ctx.lineWidth = 1;
-  setFillColor(r, g, b, lightConeOpacity);
+  for (let i = 0; i < showLightCones.length; i++) {
+    console.log(showLightCones);
+    if (worldlines[i].length == 0) {
+      continue;
+    }
+    if (!showLightCones[i]) {
+      continue;
+    }
+    setStrokeColor(colors[i][0], colors[i][1], colors[i][2]);
+    setFillColor(colors[i][0], colors[i][1], colors[i][2], lightConeOpacity);
+    let x = worldlines[i][worldlines[i].length - 1][0];
+    let y = worldlines[i][worldlines[i].length - 1][1];
 
-  // Upper part of light cone
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(0, y - x);
-  ctx.lineTo(0, 0);
-  ctx.lineTo(WINDOW_SIZE, 0);
-  ctx.lineTo(WINDOW_SIZE, y - ( WINDOW_SIZE - x));
-  ctx.lineTo(x, y);
-  ctx.fill();
-  ctx.stroke();
+    // Upper part of light cone
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(0, y - x);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(WINDOW_SIZE, 0);
+    ctx.lineTo(WINDOW_SIZE, y - ( WINDOW_SIZE - x));
+    ctx.lineTo(x, y);
+    ctx.fill();
+    ctx.stroke();
 
-  // Low part of line clone
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(0, y + x);
-  ctx.lineTo(0, WINDOW_SIZE);
-  ctx.lineTo(WINDOW_SIZE, WINDOW_SIZE);
-  ctx.lineTo(WINDOW_SIZE, y + (WINDOW_SIZE - x));
-  ctx.lineTo(x, y);
-  ctx.fill();
-  ctx.stroke();
+    // Low part of line clone
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(0, y + x);
+    ctx.lineTo(0, WINDOW_SIZE);
+    ctx.lineTo(WINDOW_SIZE, WINDOW_SIZE);
+    ctx.lineTo(WINDOW_SIZE, y + (WINDOW_SIZE - x));
+    ctx.lineTo(x, y);
+    ctx.fill();
+    ctx.stroke();
+  }
 }
 
 function drawAll() {
   clearCanvas();
   drawGrid();
   
-  for (let i = 0; i < worldline.length; i++) {
-    if (worldline[i].length == 0) {
+  for (let i = 0; i < worldlines.length; i++) {
+    if (worldlines[i].length == 0) {
       continue;
     }
 
-    // Set stroke properties
-    ctx.lineWidth = 2;
-    setStrokeColor(colors[i][0], colors[i][1], colors[i][2]);
+    for (let j = 0; j < worldlines[i].length; j++) {
+      // Set stroke properties
+      ctx.lineWidth = 2;
+      setStrokeColor(colors[i][0], colors[i][1], colors[i][2]);
 
-    for (let j = 0; j < worldline[i].length; j++) {
       // Find current point
-      x = worldline[i][j][0];
-      y = worldline[i][j][1];
+      x = worldlines[i][j][0];
+      y = worldlines[i][j][1];
   
       // Draw current point
       ctx.beginPath();
@@ -121,15 +155,14 @@ function drawAll() {
       // Draw line to next point
       if (j > 0) {
         ctx.beginPath();
-        ctx.moveTo(worldline[i][j-1][0], worldline[i][j-1][1]);
+        ctx.moveTo(worldlines[i][j-1][0], worldlines[i][j-1][1]);
         ctx.lineTo(x, y);
         ctx.stroke();
       }
       
-      // Draw light cone
-      if (j == worldline[i].length - 1 && showLightCones) {
-        drawLightCone(x, y, colors[i][0], colors[i][1], colors[i][2]);
-      }
+      
     }
   }
+
+  drawLightCones();
 }
