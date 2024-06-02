@@ -47,7 +47,7 @@ header, footer {
 }
 
 #newWorldlineContainer {
-  background-color: rgb(0, 0, 0);
+  background-color: green;
   border: 1px solid black;
   height: 50%
 }
@@ -88,4 +88,8 @@ header, footer {
   border: 1px solid black;
   height: 50px;
   margin: 30px;
+}
+
+.centeredText {
+  text-align: center;
 }

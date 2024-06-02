@@ -13,8 +13,8 @@ const WINDOW_SIZE = 600;
 let showLightCones = true;
 
 // 3-D list: first index is which worldline, second index is which point in worldline, third index is x or y
-let worldline = [];
-
+let worldline = [[], [], []];
+let worldlineIndex = 0; // index of current worldine (i.e. next one to add a point to)
 
 // EVENT LISTENERS
 
@@ -26,7 +26,7 @@ canvas.addEventListener('click', function(event) {
   const rect = canvas.getBoundingClientRect();
   let x = event.clientX - rect.left;
   let y = event.clientY - rect.top;
-  worldline.push([x, y]);
+  worldline[worldlineIndex].push([x, y]);
   drawAll();
 });
 
@@ -98,29 +98,38 @@ function drawLightCone(x, y, r, g, b) {
 function drawAll() {
   clearCanvas();
   drawGrid();
-  ctx.lineWidth = 2;
-  setStrokeColor(colors[0][0], colors[0][1], colors[0][2]);
-
+  
   for (let i = 0; i < worldline.length; i++) {
-    x = worldline[i][0];
-    y = worldline[i][1];
-
-    // Draw current point
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2 * Math.PI);
-    ctx.stroke();
-
-    // Draw line to next point
-    if (i > 0) {
-      ctx.beginPath();
-      ctx.moveTo(worldline[i-1][0], worldline[i-1][1]);
-      ctx.lineTo(x, y);
-      ctx.stroke();
+    if (worldline[i].length == 0) {
+      continue;
     }
 
-    if (i == worldline.length - 1 && showLightCones) {
-      drawLightCone(x, y, colors[0][0], colors[0][1], colors[0][2]);
+    // Set stroke properties
+    ctx.lineWidth = 2;
+    setStrokeColor(colors[i][0], colors[i][1], colors[i][2]);
+
+    for (let j = 0; j < worldline[i].length; j++) {
+      // Find current point
+      x = worldline[i][j][0];
+      y = worldline[i][j][1];
+  
+      // Draw current point
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.stroke();
+  
+      // Draw line to next point
+      if (j > 0) {
+        ctx.beginPath();
+        ctx.moveTo(worldline[i][j-1][0], worldline[i][j-1][1]);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+      
+      // Draw light cone
+      if (j == worldline[i].length - 1 && showLightCones) {
+        drawLightCone(x, y, colors[i][0], colors[i][1], colors[i][2]);
+      }
     }
   }
-
 }
