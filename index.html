@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image and Canvas Interaction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+      <h1>Welcome to the Minkowski Spacetime Calculator!</h1>
+    </header>
+    <div class="verticalFlex">
+      <div class="horizontalFlex" id="mainContainer">
+        <div id="instructionsContainer">
+  
+        </div>
+        <div>
+          <div class="verticalFlex">
+            <div class="horizontalFlex">
+              <p class="axisLabel" id="yAxisLabel">Time (1 square = 1 year)</p>
+              <canvas id="drawingCanvas" width="600px" height="600px"></canvas>
+            </div>
+            <p class="axisLabel" id="xAxisLabel">Distance (1 square = 1 light year)</p>
+          </div>
+        </div>
+        <div class="verticalFlex" id="rightContainer">
+          <div class="container" id="newWorldlineContainer">
+  
+          </div>
+          <div id="minkowskiContainer">
+  
+          </div>
+        </div>
+      </div>
+      <div class="horizontalFlex" id="toolbar">
+        <div class="option">
+          <label for="ShowLightCones">Show Light Cones:</label>
+          <input type="checkbox" id="ShowLightConesCheckbox" checked>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

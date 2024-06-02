@@ -1,0 +1,91 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+header, footer {
+  text-align: center;
+  color: blue;
+  height: 75px;
+}
+
+.horizontalFlex {
+  display: flex;
+  flex-direction: row;
+}
+
+.verticalFlex {
+  display: flex;
+  flex-direction: column;
+}
+
+#mainContainer {
+  height: 600px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#instructionsContainer {
+  width: 200px;
+  background-color: grey;
+  border: 1px solid black;
+  height: 600px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#rightContainer {
+  width: 400px;
+  background-color: grey;
+  border: 1px solid black;
+  height: 600px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#newWorldlineContainer {
+  background-color: rgb(0, 0, 0);
+  border: 1px solid black;
+  height: 50%
+}
+
+#minkowskiContainer {
+  height: 50%;
+  background-color: blue;
+}
+
+#drawingCanvas {
+  padding: 0;
+  margin: 0;
+  border: 1px solid black;
+  width: 600px;
+  height: 600px;
+}
+
+#yAxisLabel {
+  width: 10px;
+  margin-right: 10px;
+  writing-mode: vertical-rl; /* Vertical writing mode, rotate text 90 degrees clockwise */
+  transform: rotate(-180deg);
+  
+}
+
+#xAxisLabel {
+  height: 10px;
+  margin-top: 5px;
+}
+
+.axisLabel {
+  text-align: center;
+  color: black;
+  size: 12;
+}
+
+#toolbar {
+  border: 1px solid black;
+  height: 50px;
+  margin: 30px;
+}
