@@ -23,6 +23,11 @@ header, footer {
   justify-content: space-around;
 }
 
+/* li {
+  margin-bottom: 20px;
+  margin-top: 20px;
+} */
+
 #mainContainer {
   height: 600px;
   margin-left: 5px;
@@ -30,7 +35,7 @@ header, footer {
 }
 
 #instructionsContainer {
-  width: 200px;
+  width: 300px;
   background-color: moccasin;
   border: 1px solid black;
   height: 600px;
@@ -107,18 +112,18 @@ header, footer {
 } */
 
 .worldline-1-radio-container {
-  background-color: rgb(57, 19, 247);
+  background-color: rgb(68, 117, 248);
   color: white;
 }
 
 .worldline-2-radio-container {
-  background-color: rgb(247, 93, 42);
-  color: purple;
+  background-color: rgb(124, 51, 255);
+  color: white;
 }
 
 .worldline-3-radio-container {
-  background-color: rgb(63, 204, 89);
-  color: maroon;
+  background-color: rgb(36, 142, 35);
+  color: white;
 }
 
 
@@ -173,3 +178,25 @@ header, footer {
   background-color: red;
   width: 300px;
 }
+
+#statsContainer {
+  justify-content: space-around;
+}
+
+#worldline1StatsContainer {
+  color: rgb(68, 117, 248);
+}
+
+#worldline2StatsContainer {
+  color: rgb(124, 51, 255);
+}
+
+#worldline3StatsContainer {
+  color: rgb(36, 142, 35);
+}
+
+.worldlineYears {
+  font-size: 50px;
+  margin: 0;
+}
+

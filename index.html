@@ -15,6 +15,14 @@
       <div class="horizontalFlex" id="mainContainer">
         <div id="instructionsContainer">
           <h2 class="centeredText" >Instructions</h2>
+          <ul>
+            <li>Click on the grid to add an event in spacetime.</li>
+            <li>Add more points to trace out a worldline.</li>
+            <li>In accordance with the laws of Special Relativity, make sure each segment of your worldlines stays within the light cones.</li>
+            <li>Use the menu in the top right to switch between different observers and build multiple worldlines.</li>
+            <li>The toolbar on the bottom allows you to hide different observers' light cones and clear all worldlines.</li>
+            <li>Look at the bottom right to see each the duration of each worldline according to the geometry of Minkowski spacetime.</li>
+          </ul>
         </div>
         <div>
           <div class="verticalFlex">
@@ -42,22 +50,38 @@
             </label>
           </div>
           <div id="minkowskiContainer">
-            <h2 class="centeredText" >Minkowski Spacetime Intervals</h2>
-            
+            <h2 class="centeredText" >Time Elapsed</h2>
+            <div id="statsContainer" class="horizontalFlex">
+              <div id="worldline1StatsContainer" class="verticalFlex centeredText">
+                <h3 class="centeredText">Worldline 1:</h3>
+                <h4 class="worldlineYears" id="worldline1Years">0</h4>
+                <p>years</p>
+              </div>
+              <div id="worldline2StatsContainer" class="verticalFlex centeredText">
+                <h3 class="centeredText">Worldline 2:</h3>
+                <h4 class="worldlineYears" id="worldline2Years">0</h4>
+                <p>years</p>
+              </div>
+              <div id="worldline3StatsContainer" class="verticalFlex centeredText">
+                <h3 class="centeredText">Worldline 3:</h3>
+                <h4 class="worldlineYears" id="worldline3Years">0</h4>
+                <p>years</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="horizontalFlex" id="toolbar">
         <div class="option centeredText">
-          <label for="ShowLightCone1">Show Worldline 1 Light Cone:</label>
+          <label for="ShowLightCone1">Show Worldline 1's Light Cone:</label>
           <input type="checkbox" id="LightCone1Checkbox" checked>
         </div>
         <div class="option centeredText">
-          <label for="ShowLightCone2">Show Worldline 2 Light Cone:</label>
+          <label for="ShowLightCone2">Show Worldline 2's Light Cone:</label>
           <input type="checkbox" id="LightCone2Checkbox" checked>
         </div>
         <div class="option centeredText">
-          <label for="ShowLightCone3">Show Worldline 3 Light Cone:</label>
+          <label for="ShowLightCone3">Show Worldline 3's Light Cone:</label>
           <input type="checkbox" id="LightCone3Checkbox" checked>
         </div>
         <div class="centeredText">

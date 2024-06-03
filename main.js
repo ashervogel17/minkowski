@@ -9,7 +9,7 @@ const LightCone3Checkbox = document.getElementById('LightCone3Checkbox');
 // Drawing variables
 const ctx = canvas.getContext('2d');
 const radius = 10;
-const colors = [[57, 19, 247], [247, 93, 42], [63, 204, 89]];
+const colors = [[68, 117, 248], [124, 51, 255], [36, 142, 35]];
 const lightConeOpacity = 0.15;
 const WINDOW_SIZE = 600;
 let showLightCones = [true, true, true];
@@ -33,6 +33,7 @@ canvas.addEventListener('click', function(event) {
   let x = event.clientX - rect.left;
   let y = event.clientY - rect.top;
   worldlines[worldlineIndex].push([x, y]);
+  update_worldline_years();
   drawAll();
 });
 
@@ -52,8 +53,57 @@ LightCone3Checkbox.addEventListener('change', function() {
 });
 
 function clearWorldlines() {
-  worldlines = [];
+  worldlines = [[], [], []];
+  update_worldline_years();
   drawAll();
+}
+
+// MINKOWSKI FUNCTIONS
+
+function update_worldline_years() {
+  for (let i = 1; i <= 3; i++) {
+    let name = 'worldline' + i + 'Years';
+    let element = document.getElementById(name);
+    let years = duration(i);
+    element.textContent = Math.round(years * 100) / 100;
+  }
+}
+
+// wordlineNumber is 1, 2, or 3
+
+// Returns "ERROR" if any of the intervals are invalid
+function duration(worldlineNumber) {
+  let worldline = worldlines[worldlineNumber - 1];
+  if (worldline.length == 1) {
+    return 0;
+  }
+  let total_duration = 0;
+  for (let i = 1; i < worldline.length; i++) {
+    if (worldline.length == 0) {
+      continue;
+    }
+    delta_t = (worldline[i-1][1] - worldline[i][1])/50; // inverted b/c of the coordinate system
+    delta_x = (worldline[i][0] - worldline[i-1][0])/50;
+    if (delta_t < 0) {
+      alert("Worldlines cannot move backwards in time. Try again!");
+      worldline.pop();
+      return total_duration;
+    }
+    if (Math.abs(delta_x) > Math.abs(delta_t)) {
+      alert("You can't travel faster than the speed of light! Make sure to stay within the light cones. Try again!");
+      worldline.pop();
+      return total_duration;
+    }
+    var duration_increment = Math.sqrt(-1*(-delta_t * delta_t + delta_x * delta_x));
+    if (!duration_increment) {
+      alert("You can't have a negative duration for an interval! Try again!");
+      worldline.pop();
+      return total_duration;
+    }
+    total_duration += duration_increment;
+    
+  }
+  return total_duration;
 }
 
 
@@ -76,7 +126,6 @@ function drawGrid() {
   ctx.lineWidth = 1;
   for (let i = 0; i <= WINDOW_SIZE; i += 50) {
     // Horizontal lines
-    ctx.str
     ctx.beginPath();
     ctx.moveTo(0, i);
     ctx.lineTo(WINDOW_SIZE, i);
@@ -88,12 +137,33 @@ function drawGrid() {
     ctx.lineTo(i, WINDOW_SIZE);
     ctx.stroke();
   }
+
+  // Axis arrows
+  ctx.lineWidth = 3;
+  setFillColor(0, 0, 0, 1);
+  ctx.beginPath();
+  ctx.moveTo(10, 590);
+  ctx.lineTo(10, 10);
+  ctx.lineTo(5, 40);
+  ctx.lineTo(15, 40);
+  ctx.lineTo(10, 10);
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(10, 590);
+  ctx.lineTo(590, 590);
+  ctx.lineTo(550, 595);
+  ctx.lineTo(550, 585);
+  ctx.lineTo(590, 590);
+  ctx.fill();
+  ctx.stroke();
+
+
 }
 
 function drawLightCones() {
   ctx.lineWidth = 1;
   for (let i = 0; i < showLightCones.length; i++) {
-    console.log(showLightCones);
     if (worldlines[i].length == 0) {
       continue;
     }
